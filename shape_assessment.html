@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S.H.A.P.E. Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FAF7F2;
+  --warm-white: #FFFEFB;
+  --ink: #1C1917;
+  --ink-light: #44403C;
+  --ink-muted: #78716C;
+  --ink-faint: #A8A29E;
+  --border: #E7E4DF;
+  --border-strong: #C9C5BF;
+  --accent: #7C5E3C;
+  --accent-light: #A3845C;
+  --accent-bg: #F5EFE6;
+  --accent-bg2: #EDE5D8;
+  --s-color: #5B6B4A;
+  --s-bg: #EFF3EA;
+  --h-color: #8B4A3C;
+  --h-bg: #F7EDE9;
+  --a-color: #3B5C78;
+  --a-bg: #E8EFF6;
+  --p-color: #6B4A7C;
+  --p-bg: #F2ECF7;
+  --e-color: #7C6B3C;
+  --e-bg: #F5F0E6;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-soft: 0 2px 12px rgba(28,25,23,0.07);
+  --shadow-card: 0 4px 24px rgba(28,25,23,0.09);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+.page-header {
+  background: var(--ink);
+  color: var(--cream);
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.015) 40px,
+    rgba(255,255,255,0.015) 80px
+  );
+  pointer-events: none;
+}
+.lang-toggle {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  display: flex;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 13px;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.lang-btn {
+  padding: 5px 14px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.55);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .03em;
+  transition: all .2s;
+}
+.lang-btn.active {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.lang-btn:hover:not(.active) { color: rgba(255,255,255,0.8); }
+.shape-letters {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+.shape-letter {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 600;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  transition: all .3s;
+}
+.shape-letter.active-section {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.3);
+}
+h1.site-title {
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: .5rem;
+}
+h2.site-subtitle {
+  font-family: 'Lora', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: .5rem;
+  line-height: 1.25;
+}
+.site-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.55);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.name-row {
+  max-width: 680px;
+  margin: 2rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.name-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.name-field label {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.name-field input {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  font-family: 'Source Sans 3', sans-serif;
+  outline: none;
+  transition: border-color .2s;
+}
+.name-field input::placeholder { color: rgba(255,255,255,0.3); }
+.name-field input:focus { border-color: rgba(255,255,255,0.5); }
+.main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+.progress-bar {
+  background: var(--border);
+  border-radius: 4px;
+  height: 3px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width .4s ease;
+  width: 0%;
+}
+.section-card {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: box-shadow .2s;
+}
+.section-card:hover { box-shadow: var(--shadow-card); }
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s;
+}
+.section-header:hover { background: var(--cream); }
+.section-pill {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lora', serif;
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.pill-s { background: var(--s-bg); color: var(--s-color); }
+.pill-h { background: var(--h-bg); color: var(--h-color); }
+.pill-a { background: var(--a-bg); color: var(--a-color); }
+.pill-p { background: var(--p-bg); color: var(--p-color); }
+.pill-e { background: var(--e-bg); color: var(--e-color); }
+.section-title-wrap { flex: 1; }
+.section-title-text {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.section-title-sub {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 1px;
+}
+.section-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.complete-badge {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--s-bg);
+  color: var(--s-color);
+  display: none;
+}
+.complete-badge.show { display: block; }
+.chevron {
+  color: var(--ink-faint);
+  font-size: 11px;
+  transition: transform .25s;
+  flex-shrink: 0;
+}
+.chevron.open { transform: rotate(180deg); }
+.section-body {
+  display: none;
+  padding: 0 1.5rem 1.5rem;
+  border-top: 1px solid var(--border);
+  animation: fadeIn .2s ease;
+}
+.section-body.open { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+.gift-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 1rem;
+}
+@media(max-width: 560px) {
+  .gift-grid { grid-template-columns: 1fr; }
+  .style-cols { grid-template-columns: 1fr 1fr !important; }
+  .name-row { grid-template-columns: 1fr; }
+  .check-2col { grid-template-columns: 1fr !important; }
+}
+.gift-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .85rem 1rem;
+  background: var(--cream);
+  transition: border-color .15s;
+}
+.gift-card:hover { border-color: var(--border-strong); }
+.gift-card-name {
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: .6rem;
+}
+.trait-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.trait-item:last-child { margin-bottom: 0; }
+.trait-item input[type=checkbox] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+}
+.trait-item span {
+  font-size: 12.5px;
+  color: var(--ink-light);
+  line-height: 1.45;
+}
+.score-strip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: .75rem;
+  padding-top: .6rem;
+  border-top: 1px dashed var(--border);
+}
+.score-dots { display: flex; gap: 4px; }
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 1px solid var(--border-strong);
+  transition: all .15s;
+}
+.dot.on { background: var(--s-color); border-color: var(--s-color); }
+.score-txt {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  margin-left: auto;
+}
+.top3-strip {
+  background: var(--s-bg);
+  border-radius: var(--radius);
+  padding: .85rem 1rem;
+  margin-top: 1rem;
+}
+.top3-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--s-color);
+  margin-bottom: .5rem;
+}
+.top3-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid rgba(91,107,74,0.25);
+  color: var(--s-color);
+}
+.chip.empty {
+  background: transparent;
+  border-style: dashed;
+  color: var(--ink-faint);
+}
+.field-block { margin-top: 1.25rem; }
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: .5rem;
+  display: block;
+}
+textarea, input[type=email], input[type=text].text-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .65rem .9rem;
+  font-size: 14px;
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+  resize: vertical;
+  min-height: 72px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  line-height: 1.5;
+}
+textarea:focus, input[type=email]:focus, input[type=text].text-input:focus {
+  border-color: var(--accent-light);
+  box-shadow: 0 0 0 3px rgba(124,94,60,0.1);
+}
+input[type=email], input[type=text].text-input { min-height: auto; resize: none; }
+.check-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 20px;
+}
+.check-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px 16px;
+}
+@media(max-width:560px) { .check-3col { grid-template-columns: 1fr 1fr; } }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.check-item input {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 14px;
+  height: 14px;
+}
+.check-item span {
+  font-size: 13.5px;
+  color: var(--ink-light);
+  line-height: 1.4;
+}
+.style-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 1rem;
+}
+.style-col {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: .75rem;
+  background: var(--cream);
+}
+.style-col-head {
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  padding: 4px 6px;
+  border-radius: 6px;
+  margin-bottom: .6rem;
+  letter-spacing: .02em;
+}
+.sc-c { background: var(--h-bg); color: var(--h-color); }
+.sc-cl { background: var(--p-bg); color: var(--p-color); }
+.sc-tp { background: var(--s-bg); color: var(--s-color); }
+.sc-a { background: var(--a-bg); color: var(--a-color); }
+.style-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+.style-item input {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 13px;
+  height: 13px;
+}
+.style-item span { font-size: 11.5px; color: var(--ink-light); line-height: 1.4; }
+.style-score-box {
+  text-align: center;
+  margin-top: .6rem;
+  padding-top: .6rem;
+  border-top: 1px dashed var(--border);
+}
+.style-score-num { font-size: 20px; font-weight: 600; color: var(--ink); font-family: 'Lora', serif; }
+.style-score-sub { font-size: 10px; color: var(--ink-faint); letter-spacing: .04em; text-transform: uppercase; }
+.radio-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .15s;
+  margin-bottom: 4px;
+}
+.radio-item:hover { background: var(--accent-bg); }
+.radio-item input {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+}
+.radio-item span { font-size: 14px; color: var(--ink-light); }
+.results-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  letter-spacing: .01em;
+  transition: background .2s, transform .1s;
+}
+.results-btn:hover { background: var(--accent); }
+.results-btn:active { transform: scale(0.99); }
+.results-card {
+  display: none;
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-top: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+.results-card.open { display: block; }
+.results-heading {
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: .25rem;
+}
+.results-subhead {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-bottom: 1.5rem;
+}
+.res-section { margin-bottom: 1.25rem; }
+.res-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid var(--border);
+}
+.res-section-label.rs { color: var(--s-color); border-color: var(--s-bg); }
+.res-section-label.rh { color: var(--h-color); border-color: var(--h-bg); }
+.res-section-label.ra { color: var(--a-color); border-color: var(--a-bg); }
+.res-section-label.rp { color: var(--p-color); border-color: var(--p-bg); }
+.res-section-label.re { color: var(--e-color); border-color: var(--e-bg); }
+.res-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.res-chip {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+.rc-s { background: var(--s-bg); color: var(--s-color); }
+.rc-h { background: var(--h-bg); color: var(--h-color); }
+.rc-a { background: var(--a-bg); color: var(--a-color); }
+.rc-p { background: var(--p-bg); color: var(--p-color); }
+.rc-e { background: var(--e-bg); color: var(--e-color); }
+.res-text { font-size: 14px; color: var(--ink-light); line-height: 1.6; }
+.style-bar-wrap { display: flex; flex-direction: column; gap: 6px; margin-top: .25rem; }
+.style-bar-row { display: flex; align-items: center; gap: 10px; }
+.style-bar-name { font-size: 13px; font-weight: 500; color: var(--ink-light); width: 100px; flex-shrink: 0; }
+.style-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.style-bar-fill { height: 100%; border-radius: 4px; transition: width .4s ease; }
+.style-bar-num { font-size: 13px; font-weight: 600; color: var(--ink-muted); width: 28px; text-align: right; flex-shrink: 0; }
+.email-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 1.25rem;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}
+.email-row .field-wrap { flex: 1; }
+.email-row .field-wrap label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: .4rem;
+}
+.send-btn {
+  padding: .65rem 1.1rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s;
+  height: 42px;
+}
+.send-btn:hover { background: #5C4427; }
+.print-note {
+  font-size: 12px;
+  color: var(--ink-faint);
+  text-align: center;
+  margin-top: 1rem;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.25rem 0;
+}
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btn-es" onclick="setLang('es')">ES</button>
+  </div>
+  <div class="shape-letters">
+    <div class="shape-letter" id="sl-s">S</div>
+    <div class="shape-letter" id="sl-h">H</div>
+    <div class="shape-letter" id="sl-a">A</div>
+    <div class="shape-letter" id="sl-p">P</div>
+    <div class="shape-letter" id="sl-e">E</div>
+  </div>
+  <p class="site-title" data-en="Spiritual Formation Tool" data-es="Herramienta de Formación Espiritual">Spiritual Formation Tool</p>
+  <h2 class="site-subtitle" data-en="Finding Your S.H.A.P.E." data-es="Descubriendo Tu S.H.A.P.E.">Finding Your S.H.A.P.E.</h2>
+  <p class="site-desc" data-en="Discover how God has uniquely wired you for meaningful ministry. Complete each section honestly — your results are yours alone." data-es="Descubre cómo Dios te ha diseñado de manera única para un ministerio significativo. Completa cada sección con honestidad — tus resultados son solo tuyos.">Discover how God has uniquely wired you for meaningful ministry. Complete each section honestly — your results are yours alone.</p>
+  <div class="name-row">
+    <div class="name-field">
+      <label data-en="Your name" data-es="Tu nombre">Your name</label>
+      <input type="text" id="person-name" data-en-placeholder="First and last name" data-es-placeholder="Nombre y apellido" placeholder="First and last name">
+    </div>
+    <div class="name-field">
+      <label data-en="Date" data-es="Fecha">Date</label>
+      <input type="text" id="person-date" data-en-placeholder="Today's date" data-es-placeholder="Fecha de hoy" placeholder="Today's date">
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <!-- S: SPIRITUAL GIFTS -->
+  <div class="section-card" id="card-s">
+    <div class="section-header" onclick="toggle('body-s','chev-s','sl-s')">
+      <div class="section-pill pill-s">S</div>
+      <div class="section-title-wrap">
+        <div class="section-title-text" data-en="Spiritual Gifts" data-es="Dones Espirituales">Spiritual Gifts</div>
+        <div class="section-title-sub" data-en="Check every trait that fits you — scores calculate automatically" data-es="Marca cada rasgo que te describe — los puntajes se calculan automáticamente">Check every trait that fits you — scores calculate automatically</div>
+      </div>
+      <div class="section-meta">
+        <span class="complete-badge" id="badge-s">✓</span>
+        <span class="chevron" id="chev-s">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="body-s">
+      <div class="gift-grid" id="gifts-container"></div>
+      <div class="top3-strip">
+        <div class="top3-label" data-en="Your top 3 gifts (auto-ranked)" data-es="Tus 3 dones principales (clasificados automáticamente)">Your top 3 gifts (auto-ranked)</div>
+        <div class="top3-chips" id="top3-display"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- H: HEART -->
+  <div class="section-card" id="card-h">
+    <div class="section-header" onclick="toggle('body-h','chev-h','sl-h')">
+      <div class="section-pill pill-h">H</div>
+      <div class="section-title-wrap">
+        <div class="section-title-text" data-en="Heart" data-es="Corazón">Heart</div>
+        <div class="section-title-sub" data-en="The roles, people, and causes that ignite your passion" data-es="Los roles, personas y causas que encienden tu pasión">The roles, people, and causes that ignite your passion</div>
+      </div>
+      <div class="section-meta">
+        <span class="complete-badge" id="badge-h">✓</span>
+        <span class="chevron" id="chev-h">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="body-h">
+      <div class="field-block">
+        <label class="field-label" data-en="If you could have any dream job, what would it be?" data-es="Si pudieras tener cualquier trabajo ideal, ¿cuál sería?">If you could have any dream job, what would it be?</label>
+        <textarea id="h-dream" data-en-placeholder="Describe your dream job..." data-es-placeholder="Describe tu trabajo ideal..." placeholder="Describe your dream job..." oninput="updateProgress()"></textarea>
+      </div>
+      <div class="field-block">
+        <label class="field-label" data-en="What energizes you most — something you could stay up late talking about?" data-es="¿Qué te da más energía — algo de lo que podrías hablar hasta tarde?">What energizes you most — something you could stay up late talking about?</label>
+        <textarea id="h-passion" data-en-placeholder="What deeply motivates you?" data-es-placeholder="¿Qué te motiva profundamente?" placeholder="What deeply motivates you?" oninput="updateProgress()"></textarea>
+      </div>
+      <div class="field-block">
+        <label class="field-label" data-en="Roles I love (check all that apply)" data-es="Roles que me encantan (marca todos los que aplican)">Roles I love (check all that apply)</label>
+        <div class="check-2col" id="roles-grid"></div>
+      </div>
+      <div class="field-block">
+        <label class="field-label" data-en="People I most want to help" data-es="Personas a quienes más quiero ayudar">People I most want to help</label>
+        <div class="check-2col" id="people-grid"></div>
+      </div>
+      <div class="field-block">
+        <label class="field-label" data-en="Causes that get my adrenalin going" data-es="Causas que me emocionan">Causes that get my adrenalin going</label>
+        <div class="check-3col" id="causes-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- A: ABILITIES -->
+  <div class="section-card" id="card-a">
+    <div class="section-header" onclick="toggle('body-a','chev-a','sl-a')">
+      <div class="section-pill pill-a">A</div>
+      <div class="section-title-wrap">
+        <div class="section-title-text" data-en="Abilities" data-es="Habilidades">Abilities</div>
+        <div class="section-title-sub" data-en="God-given talents and skills that have surfaced throughout your life" data-es="Talentos y habilidades que Dios te ha dado a lo largo de tu vida">God-given talents and skills that have surfaced throughout your life</div>
+      </div>
+      <div class="section-meta">
+        <span class="complete-badge" id="badge-a">✓</span>
+        <span class="chevron" id="chev-a">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="body-a">
+      <div class="field-block">
+        <label class="field-label" data-en="Check all abilities that apply to you" data-es="Marca todas las habilidades que te aplican">Check all abilities that apply to you</label>
+        <div class="check-2col" id="abilities-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P: PERSONAL STYLE -->
+  <div class="section-card" id="card-p">
+    <div class="section-header" onclick="toggle('body-p','chev-p','sl-p')">
+      <div class="section-pill pill-p">P</div>
+      <div class="section-title-wrap">
+        <div class="section-title-text" data-en="Personal Style" data-es="Estilo Personal">Personal Style</div>
+        <div class="section-title-sub" data-en="Check traits that describe you — scores double automatically" data-es="Marca los rasgos que te describen — los puntajes se duplican automáticamente">Check traits that describe you — scores double automatically</div>
+      </div>
+      <div class="section-meta">
+        <span class="complete-badge" id="badge-p">✓</span>
+        <span class="chevron" id="chev-p">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="body-p">
+      <div class="style-cols" id="style-grid"></div>
+    </div>
+  </div>
+
+  <!-- E: EXPERIENCES -->
+  <div class="section-card" id="card-e">
+    <div class="section-header" onclick="toggle('body-e','chev-e','sl-e')">
+      <div class="section-pill pill-e">E</div>
+      <div class="section-title-wrap">
+        <div class="section-title-text" data-en="Experiences" data-es="Experiencias">Experiences</div>
+        <div class="section-title-sub" data-en="Work, life, and ministry background" data-es="Trasfondo laboral, de vida y ministerial">Work, life, and ministry background</div>
+      </div>
+      <div class="section-meta">
+        <span class="complete-badge" id="badge-e">✓</span>
+        <span class="chevron" id="chev-e">▼</span>
+      </div>
+    </div>
+    <div class="section-body" id="body-e">
+      <div class="field-block">
+        <label class="field-label" data-en="Work experiences you've been most effective in and enjoyed" data-es="Experiencias laborales en las que has sido más efectivo y que has disfrutado">Work experiences you've been most effective in and enjoyed</label>
+        <textarea id="e-work" data-en-placeholder="List roles or jobs..." data-es-placeholder="Lista roles o trabajos..." placeholder="List roles or jobs..." oninput="updateProgress()"></textarea>
+      </div>
+      <div class="field-block">
+        <label class="field-label" data-en="Life experiences — problems, hurts, or trials you can help others through" data-es="Experiencias de vida — problemas, heridas o pruebas con las que puedes ayudar a otros">Life experiences — problems, hurts, or trials you can help others through</label>
+        <div class="check-2col" id="life-grid"></div>
+      </div>
+      <div class="field-block" style="margin-top:1rem">
+        <label class="field-label" data-en="Ministry experiences you've enjoyed" data-es="Experiencias ministeriales que has disfrutado">Ministry experiences you've enjoyed</label>
+        <div class="check-2col" id="ministry-grid"></div>
+      </div>
+      <div class="field-block" style="margin-top:1rem">
+        <label class="field-label" data-en="Where are you in your spiritual journey right now?" data-es="¿En qué punto de tu jornada espiritual te encuentras ahora?">Where are you in your spiritual journey right now?</label>
+        <div id="journey-radios"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="results-btn" onclick="showResults()" data-en="View My S.H.A.P.E. Profile →" data-es="Ver Mi Perfil S.H.A.P.E. →">View My S.H.A.P.E. Profile →</button>
+
+  <div class="results-card" id="results-card">
+    <h2 class="results-heading" data-en="Your S.H.A.P.E. Profile" data-es="Tu Perfil S.H.A.P.E.">Your S.H.A.P.E. Profile</h2>
+    <p class="results-subhead" id="results-name-line">Complete the sections above, then click the button to see your profile.</p>
+
+    <div id="results-body"></div>
+
+    <hr class="divider">
+    <div class="email-row">
+      <div class="field-wrap">
+        <label data-en="Email results to yourself" data-es="Envíate los resultados por correo">Email results to yourself</label>
+        <input type="email" id="result-email" data-en-placeholder="your@email.com" data-es-placeholder="tu@correo.com" placeholder="your@email.com">
+      </div>
+      <button class="send-btn" onclick="emailResults()" data-en="Send →" data-es="Enviar →">Send →</button>
+    </div>
+    <p class="print-note" data-en="Or use File → Print (Ctrl/Cmd+P) to save as PDF." data-es="O usa Archivo → Imprimir (Ctrl/Cmd+P) para guardar como PDF.">Or use File → Print (Ctrl/Cmd+P) to save as PDF.</p>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const DATA = {
+  gifts: [
+    { en: "Administration", es: "Administración",
+      traits: { en: ["Delegates responsibilities easily","Organizes effectively","Enjoys completing projects","Enjoys planning and administrative work","Successfully sets and achieves goals"],
+                es: ["Delega responsabilidades fácilmente","Organiza con efectividad","Disfruta completar proyectos","Disfruta la planificación y el trabajo administrativo","Establece y alcanza metas con éxito"] } },
+    { en: "Craftsmanship", es: "Artesanía",
+      traits: { en: ["Takes pleasure in drawing or designing","Finds joy in painting or handcrafting","Experiences fulfillment in completing creative projects","Enjoys creating beauty","Finds satisfaction in repairing and maintaining things"],
+                es: ["Se complace en dibujar o diseñar","Encuentra alegría en pintar o crear artesanías","Siente satisfacción al completar proyectos creativos","Disfruta crear belleza","Encuentra satisfacción en reparar y mantener cosas"] } },
+    { en: "Evangelism", es: "Evangelismo",
+      traits: { en: ["Enjoys talking to others about faith in Jesus","Challenged by opportunities to talk to nonbelievers","Consistently seeks out opportunities to share Christ","Takes satisfaction from sharing the Gospel and persuading others","Finds pleasure in making new friends and sharing Christ's love"],
+                es: ["Disfruta hablar a otros sobre la fe en Jesús","Le motivan las oportunidades de hablar con no creyentes","Busca constantemente oportunidades para compartir a Cristo","Encuentra satisfacción al compartir el Evangelio y persuadir a otros","Encuentra placer en hacer nuevos amigos y compartir el amor de Cristo"] } },
+    { en: "Exhortation / Wisdom", es: "Exhortación / Sabiduría",
+      traits: { en: ["Speaks words of encouragement to those who are troubled","Enjoys helping others resolve difficult problems","Accurately applies truth to daily life amid crises","A good counselor to those feeling perplexed or guilty","Regularly helps others with biblical guidance"],
+                es: ["Habla palabras de aliento a quienes están angustiados","Disfruta ayudar a otros a resolver problemas difíciles","Aplica la verdad con precisión a la vida diaria en medio de crisis","Es un buen consejero para quienes se sienten perplejos o culpables","Regularmente ayuda a otros con orientación bíblica"] } },
+    { en: "Giving", es: "Generosidad",
+      traits: { en: ["Conscientiously manages money to give generously","Consistently contributes to God's work out of gratitude","Feels moved by urgent financial needs in the kingdom","Content with less in order to give more to God's work","Finds pleasure in using resources to help others"],
+                es: ["Administra el dinero conscientemente para dar generosamente","Contribuye consistentemente a la obra de Dios con gratitud","Se conmueve ante las necesidades financieras urgentes del reino","Conforme con menos para poder dar más a la obra de Dios","Encuentra placer en usar recursos para ayudar a otros"] } },
+    { en: "Hospitality", es: "Hospitalidad",
+      traits: { en: ["Readily provides food and shelter to people in need","Enjoys having guests and sharing freely","Makes visitors feel comfortable and welcome","Willingly opens home to strangers, even when inconvenient","Sees home as a resource from God to share"],
+                es: ["Proporciona fácilmente comida y alojamiento a quienes lo necesitan","Disfruta recibir invitados y compartir generosamente","Hace que los visitantes se sientan cómodos y bienvenidos","Abre su hogar a extraños aunque sea inconveniente","Ve su hogar como un recurso de Dios para compartir"] } },
+    { en: "Intercession", es: "Intercesión",
+      traits: { en: ["Prays faithfully for others without being prompted","Prays for others when could be doing something else","Feels confident prayers are working miracles","Knows that praying for others brings tangible results","Regards prayer as a favorite spiritual exercise"],
+                es: ["Ora fielmente por otros sin necesidad de ser animado","Ora por otros cuando podría estar haciendo otra cosa","Se siente seguro de que las oraciones obran milagros","Sabe que orar por otros trae resultados tangibles","Considera la oración como su ejercicio espiritual favorito"] } },
+    { en: "Knowledge", es: "Conocimiento",
+      traits: { en: ["Frequently discovers new spiritual truths","Confident that insights can change attitudes and convictions","Acquires and masters new facts that help others grow","Enjoys reading and studying Biblical truth","Distinguishes key truths that benefit self and others"],
+                es: ["Frecuentemente descubre nuevas verdades espirituales","Confiado en que sus perspectivas pueden cambiar actitudes y convicciones","Adquiere y domina nuevos hechos que ayudan a otros a crecer","Disfruta leer y estudiar la verdad bíblica","Distingue verdades clave que benefician a sí mismo y a otros"] } },
+    { en: "Leadership", es: "Liderazgo",
+      traits: { en: ["Enjoys persuading others to accomplish shared goals","Shows success in leading others toward specific tasks","Others naturally follow their example","Leads groups in decision-making processes","Positively motivates others to accomplish tasks"],
+                es: ["Disfruta persuadir a otros para alcanzar metas comunes","Muestra éxito al guiar a otros hacia tareas específicas","Otros siguen naturalmente su ejemplo","Lidera grupos en procesos de toma de decisiones","Motiva positivamente a otros a cumplir tareas"] } },
+    { en: "Mercy", es: "Misericordia",
+      traits: { en: ["Works joyfully with people often ignored by others","Talks compassionately with the elderly and shut-ins","Enjoys working with those in jails and prisons","Joyfully serves those who can give little in return","Enjoys comforting people during sickness or trouble"],
+                es: ["Trabaja con alegría con personas a menudo ignoradas","Habla compasivamente con ancianos y personas aisladas","Disfruta trabajar con personas en cárceles y prisiones","Sirve con alegría a quienes pueden dar poco a cambio","Disfruta consolar a personas en enfermedad o dificultad"] } },
+    { en: "Music", es: "Música",
+      traits: { en: ["Joyfully sings praises to God alone or with others","Gives others pleasure by playing a musical instrument","Finds pleasure in singing hymns and Gospel songs","Knows their singing encourages others spiritually","Finds pleasure in playing music alone or with a group"],
+                es: ["Canta alabanzas a Dios con alegría solo o con otros","Da placer a otros tocando un instrumento musical","Encuentra placer en cantar himnos y canciones del Evangelio","Sabe que su canto alienta a otros espiritualmente","Encuentra placer en tocar música solo o en grupo"] } },
+    { en: "Serving", es: "Servicio",
+      traits: { en: ["Enjoys being called on to do special jobs","Enjoys routine church work that might bore others","Experiences satisfaction in doing humble tasks for God's glory","Content to take orders rather than give them","Gladly responds when others express a need for help"],
+                es: ["Disfruta ser llamado para hacer trabajos especiales","Disfruta el trabajo rutinario de la iglesia que podría aburrir a otros","Siente satisfacción al hacer tareas humildes para la gloria de Dios","Conforme con recibir órdenes en lugar de darlas","Responde con gusto cuando otros expresan necesidad de ayuda"] } },
+    { en: "Shepherding", es: "Pastoreo",
+      traits: { en: ["Takes responsibility to care for the whole person's spiritual walk","Provides guidance and oversight to a group of God's people","Models what it means to be a fully devoted follower of Jesus","Establishes trust through long-term relationships","Leads and protects those in their care"],
+                es: ["Asume responsabilidad por el crecimiento espiritual integral de las personas","Proporciona guía y supervisión a un grupo del pueblo de Dios","Modela lo que significa ser un seguidor dedicado de Jesús","Establece confianza a través de relaciones a largo plazo","Guía y protege a quienes están a su cuidado"] } },
+    { en: "Teaching", es: "Enseñanza",
+      traits: { en: ["Enjoys helping others learn Biblical facts and principles","Finds joy in sharing God's word with children or adults","Sees others' faith strengthened through teaching","Enjoys presenting and discussing Biblical truths","Freely and effectively shares Christ's love through teaching"],
+                es: ["Disfruta ayudar a otros a aprender hechos y principios bíblicos","Encuentra alegría en compartir la Palabra de Dios con niños o adultos","Ve la fe de otros fortalecida a través de la enseñanza","Disfruta presentar y discutir verdades bíblicas","Comparte libre y efectivamente el amor de Cristo a través de la enseñanza"] } },
+    { en: "Writing", es: "Escritura",
+      traits: { en: ["Enjoys formulating thoughts into effective written form","Feels confident written words will benefit readers","Composes articles in a meaningful and efficient style","Finds pleasure in writing stories and content for others' edification","Confident their literary skill can inform and build up others"],
+                es: ["Disfruta formular pensamientos en forma escrita efectiva","Se siente seguro de que sus palabras escritas beneficiarán a los lectores","Redacta artículos de manera significativa y eficiente","Encuentra placer en escribir historias y contenido para edificar a otros","Confía en que su habilidad literaria puede informar y fortalecer a otros"] } }
+  ],
+
+  roles: {
+    en: ["Design/Develop — Make something from nothing","Pioneer — Test new concepts; not afraid to risk failure","Organize — Bring order out of chaos","Operate/Maintain — Efficiently run what is already organized","Serve/Help — Assist others and help them succeed","Acquire/Possess — Shop, collect, obtain things at best value","Excel — Be the best; set and attain the highest standard","Influence — Shape the attitudes and behavior of others","Perform — Be on stage; enjoy being in the limelight","Improve — Take something and make it better","Repair — Fix what is broken or out of date","Lead/Be in Charge — Oversee, supervise, determine direction","Persevere — See things through to completion","Follow the Rules — Operate by policies and procedures","Prevail — Fight for what is right; oppose injustice"],
+    es: ["Diseñar/Desarrollar — Crear algo de la nada","Pionero — Probar nuevos conceptos; no temer al fracaso","Organizar — Traer orden al caos","Operar/Mantener — Gestionar eficientemente lo ya organizado","Servir/Ayudar — Apoyar a otros y ayudarlos a tener éxito","Adquirir/Poseer — Comprar, coleccionar u obtener cosas al mejor valor","Sobresalir — Ser el mejor; establecer y alcanzar el estándar más alto","Influenciar — Moldear las actitudes y el comportamiento de otros","Actuar — Estar en el escenario; disfrutar ser el centro de atención","Mejorar — Tomar algo y hacerlo mejor","Reparar — Arreglar lo que está roto o desactualizado","Liderar/Estar a cargo — Supervisar, determinar la dirección","Perseverar — Ver las cosas hasta su finalización","Seguir las reglas — Operar según políticas y procedimientos","Prevalecer — Luchar por lo que es correcto; oponerse a la injusticia"]
+  },
+
+  people: {
+    en: ["Infants / Babies","Toddlers","Preschool Children","Elementary Children","Jr. High Students","Sr. High Students","College Students","Young Adults","Young Marrieds","Singles","Single Parents","Couples","Men","Women","Families","Older Adults 60+","Widowed"],
+    es: ["Bebés / Infantes","Niños pequeños (1–3 años)","Niños en edad preescolar","Niños en edad escolar","Estudiantes de secundaria baja","Estudiantes de secundaria alta","Universitarios","Adultos jóvenes","Recién casados","Solteros","Padres solteros","Parejas","Hombres","Mujeres","Familias","Adultos mayores de 60+","Viudos/as"]
+  },
+
+  causes: {
+    en: ["At Risk Children","Relief Efforts","Compulsive Behavior Recovery","Homelessness","Financial Management","Health and/or Fitness","Evangelism","Illness Support","Fellowship","Abuse / Violence","Disabilities","Education","Environment","Grief Recovery","Law & Justice","Mediation","Mobilizing Volunteers","Music or Art","Parenting","Prayer","Race","Worship","Families / Marriage","Divorce Recovery","World Missions","Urban Missions","Drug & Alcohol Recovery","Athletics","Ethics","Sexuality & Gender Issues","Science / Technology","Business","Career Decisions"],
+    es: ["Niños en riesgo","Esfuerzos de ayuda humanitaria","Recuperación de comportamientos compulsivos","Personas sin hogar","Administración financiera","Salud y/o condición física","Evangelismo","Apoyo en enfermedades","Comunidad y compañerismo","Abuso / Violencia","Discapacidades","Educación","Medio ambiente","Recuperación del duelo","Ley y justicia","Mediación","Movilización de voluntarios","Música o arte","Crianza de hijos","Oración","Raza y etnia","Adoración","Familias / Matrimonio","Recuperación del divorcio","Misiones mundiales","Misiones urbanas","Recuperación de alcohol y drogas","Atletismo","Ética","Sexualidad e identidad de género","Ciencia / Tecnología","Negocios","Decisiones de carrera"]
+  },
+
+  abilities: {
+    en: ["Artistic — draw, paint, photograph, design","Athletic — coach or participate in sport","Classifying — systematize files, books, data","Cooking — prepare meals for groups","Counseling — listen, encourage, guide","Counting — work with numbers, data, money","Decorating — beautify settings for events","Developing — improve, tinker, make better","Editing — proofread or rewrite","Entertaining — perform, act, dance, speak","Evaluating — analyze data and draw conclusions","Graphics — layout, design, create visual displays","Hobby-related — work with hands in craft/trade","Interviewing — talk with people to understand them","Landscaping — gardening and plant work","Leadership — coordinate, cast vision, direct","Learning — observe, practice, research, study","Linguistic — speak/write in multiple languages","Managing — supervise people to accomplish tasks","Mechanical — operate tools or machinery","Musical — sing or play an instrument","Organizational — bring order to people/programs","Planning — strategize, design, organize events","Promoting — advertise or promote activities","Public Relations — handle issues with care/maturity","Recruiting — enlist and motivate people to join","Repairing — fix, restore, maintain things","Researching — read, gather information, collect data","Resourceful — find resources at lower cost","Teaching — explain, train, demonstrate, tutor","Technical — operate or repair equipment","Visualizing — conceptualize, picture, dream","Welcoming — convey warmth, develop rapport","Writing — write articles, papers, letters, books"],
+    es: ["Artístico — dibujar, pintar, fotografiar, diseñar","Atlético — entrenar o participar en deportes","Clasificación — sistematizar archivos, libros, datos","Cocina — preparar comidas para grupos","Consejería — escuchar, alentar, guiar","Conteo — trabajar con números, datos, dinero","Decoración — embellecer ambientes para eventos","Desarrollo — mejorar, innovar, hacer mejor","Edición — corregir pruebas o reescribir","Entretenimiento — actuar, bailar, hablar en público","Evaluación — analizar datos y sacar conclusiones","Gráfica — diseño, maquetación, exhibiciones visuales","Manualidades — trabajar con las manos en un oficio","Entrevistas — hablar con personas para entenderlas","Jardinería y paisajismo — plantas y exteriores","Liderazgo — coordinar, visionar, dirigir","Aprendizaje — observar, practicar, investigar, estudiar","Lingüístico — hablar/escribir en varios idiomas","Gestión — supervisar personas para cumplir tareas","Mecánico — operar herramientas o maquinaria","Musical — cantar o tocar un instrumento","Organización — traer orden a personas/programas","Planificación — estrategizar, diseñar, organizar eventos","Promoción — publicitar o promover actividades","Relaciones públicas — manejar problemas con madurez","Reclutamiento — motivar personas para involucrarse","Reparación — arreglar, restaurar, mantener cosas","Investigación — leer, recopilar información, datos","Ingenio — encontrar recursos a menor costo","Enseñanza — explicar, entrenar, demostrar, tutorear","Técnico — operar o reparar equipos","Visualización — conceptualizar, imaginar, soñar","Bienvenida — transmitir calidez, crear rapport","Escritura — artículos, cartas, libros, redacción"]
+  },
+
+  style: {
+    C: { en: "Coach", es: "Entrenador",
+      items: { en: ["Takes charge","Determined","Assertive","Firm","Bold","Purposeful","Enterprising","Competitive","Decision maker","Leader","Goal driven","Self-reliant","Enjoys challenges","Adventurous"],
+               es: ["Toma el mando","Determinado","Asertivo","Firme","Audaz","Con propósito","Emprendedor","Competitivo","Toma decisiones","Líder","Orientado a metas","Independiente","Disfruta los desafíos","Aventurero"] } },
+    CL: { en: "Cheerleader", es: "Animador",
+      items: { en: ["Takes risk","Visionary","Motivator","Energetic","Fun loving","Likes variety","Very verbal","Promoter","Enjoys change","Creative","Group oriented","Mixes well","Avoids detail","Optimistic"],
+               es: ["Toma riesgos","Visionario","Motivador","Enérgico","Le gusta divertirse","Le gusta la variedad","Muy verbal","Promotor","Disfruta el cambio","Creativo","Orientado al grupo","Se mezcla bien con otros","Evita los detalles","Optimista"] } },
+    TP: { en: "Team Player", es: "Jugador de Equipo",
+      items: { en: ["Loyal","Non-demanding","Even keel","Avoids conflict","Enjoys routine","Dislikes pushiness","Good listener","Adaptable","Sympathetic","Thoughtful","Nurturing","Patient","Tolerant","Deep relationships"],
+               es: ["Leal","No exigente","Equilibrado","Evita el conflicto","Disfruta la rutina","No le gusta ser presionado","Buen escucha","Adaptable","Empático","Considerado","Alentador","Paciente","Tolerante","Relaciones profundas"] } },
+    A: { en: "Analyst", es: "Analista",
+      items: { en: ["Deliberate","Controlled","Reserved","Predictable","Practical","Orderly","Factual","Discerning","Detailed","Analytical","Inquisitive","Precise","Persistent","Scheduled"],
+               es: ["Deliberado","Controlado","Reservado","Predecible","Práctico","Ordenado","Objetivo/Factual","Perspicaz","Detallista","Analítico","Curioso","Preciso","Persistente","Organizado en horarios"] } }
+  },
+
+  lifeExp: {
+    en: ["Abortion","Abuse","Adoption","Alcoholism","Alzheimer's / Dementia","Annulment of Marriage","Bankruptcy","Cancer","Chronic Pain","Crisis Pregnancy","Death / Grief","Depression","Dysfunctional Family","Divorce","Drug Abuse / Addiction","Eating Disorder","Extended Court Proceedings","Extended Job Loss","Extended Physical Illness or Injury","Handicapped / Disabled","Homeless","Military / Wartime Service","Miscarriage","Orphaned","Prison","Recovery Program","Remarried","Separated and/or Restored Marriage","Suicide","Widowed"],
+    es: ["Aborto","Abuso","Adopción","Alcoholismo","Alzheimer / Demencia","Anulación de matrimonio","Bancarrota","Cáncer","Dolor crónico","Embarazo en crisis","Muerte / Duelo","Depresión","Familia disfuncional","Divorcio","Abuso / Adicción a drogas","Trastorno alimentario","Procedimientos legales prolongados","Pérdida prolongada de empleo","Enfermedad o lesión física prolongada","Discapacidad","Situación de calle / Sin hogar","Servicio militar / en tiempos de guerra","Aborto espontáneo","Huérfano","Prisión","Programa de recuperación","Nuevo matrimonio","Separación y/o restauración matrimonial","Suicidio","Viudez"]
+  },
+
+  ministryExp: {
+    en: ["Usher / Greeter","Teacher (Adults)","Teacher/Helper (Youth)","Teacher/Helper (Children)","Host","Kitchen","Music (Instrument)","Music (Vocal)","Mission Trip","Urban Missions","Tutoring","Deacon","Elder","Drama","Small Group Leader","Mentor","Financial Counselor","Calling Team","Meals Ministry","Counseling","Prayer Team","Prison Ministry","Program/Event Coordinator","Speaker / Trainer","Writing","Office Work","ESL Ministry","Home Construction Ministry","Recovery Ministry","Special Needs Children"],
+    es: ["Ujier / Recibidor","Maestro (Adultos)","Maestro/Ayudante (Jóvenes)","Maestro/Ayudante (Niños)","Anfitrión","Cocina","Música (Instrumento)","Música (Vocal)","Viaje misionero","Misiones urbanas","Tutoría","Diácono","Anciano / Líder","Drama / Teatro","Líder de grupo pequeño","Mentor","Consejero financiero","Equipo de llamadas","Ministerio de comidas","Consejería","Equipo de oración","Ministerio en prisiones","Coordinador de programas/eventos","Conferencista / Entrenador","Escritura","Trabajo de oficina","Ministerio de ESL","Ministerio de construcción de viviendas","Ministerio de recuperación","Niños con necesidades especiales"]
+  },
+
+  journey: {
+    en: ["Seeker — Exploring Christianity; have not yet committed life to Christ","New Believer — Brand new to faith and the Bible","Growing Believer — Established in Bible study and personal devotions","Leading Believer — Vibrant relationship with Christ; ready to lead others deeper"],
+    es: ["Buscador — Explorando el cristianismo; aún no he comprometido mi vida a Cristo","Nuevo creyente — Completamente nuevo en la fe y la Biblia","Creyente en crecimiento — Establecido en el estudio bíblico y la devoción personal","Creyente líder — Relación vibrante con Cristo; listo para guiar a otros más profundo"]
+  }
+};
+
+// ─── LANGUAGE ────────────────────────────────────────────────────────────────
+
+let lang = 'en';
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-en').className = 'lang-btn' + (l==='en' ? ' active' : '');
+  document.getElementById('btn-es').className = 'lang-btn' + (l==='es' ? ' active' : '');
+  document.querySelectorAll('[data-en]').forEach(el => {
+    if (el.tagName === 'BUTTON' || el.tagName === 'LABEL' || el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'H2' || el.tagName === 'SPAN') {
+      el.textContent = el.getAttribute('data-'+l);
+    }
+  });
+  document.querySelectorAll('[data-en-placeholder]').forEach(el => {
+    el.placeholder = el.getAttribute('data-'+l+'-placeholder');
+  });
+  rebuildAll();
+}
+
+// ─── BUILD ────────────────────────────────────────────────────────────────────
+
+function buildGifts() {
+  const c = document.getElementById('gifts-container');
+  c.innerHTML = DATA.gifts.map((g, gi) => `
+    <div class="gift-card">
+      <div class="gift-card-name">${g[lang]}</div>
+      <div>${g.traits[lang].map((t, ti) => `
+        <label class="trait-item">
+          <input type="checkbox" id="g_${gi}_${ti}" onchange="updateGift(${gi})">
+          <span>${t}</span>
+        </label>`).join('')}</div>
+      <div class="score-strip">
+        <div class="score-dots" id="dots_${gi}">${[0,1,2,3,4].map(i=>`<div class="dot" id="dot_${gi}_${i}"></div>`).join('')}</div>
+        <span class="score-txt" id="gtxt_${gi}">0 / 5</span>
+      </div>
+    </div>`).join('');
+  updateTop3();
+}
+
+function updateGift(gi) {
+  let n = 0;
+  for(let ti=0;ti<5;ti++) if(document.getElementById(`g_${gi}_${ti}`)?.checked) n++;
+  document.getElementById(`gtxt_${gi}`).textContent = `${n} / 5`;
+  for(let i=0;i<5;i++) document.getElementById(`dot_${gi}_${i}`).className = 'dot'+(i<n?' on':'');
+  updateTop3();
+  updateProgress();
+}
+
+function giftScore(gi) {
+  let n=0;
+  for(let ti=0;ti<5;ti++) if(document.getElementById(`g_${gi}_${ti}`)?.checked) n++;
+  return n;
+}
+
+function updateTop3() {
+  const ranked = DATA.gifts.map((g,gi)=>({name:g[lang],score:giftScore(gi)}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,3);
+  const d = document.getElementById('top3-display');
+  if(!d) return;
+  if(ranked.length===0) { d.innerHTML = `<span class="chip empty">${lang==='en'?'None scored yet':'Ninguno puntuado aún'}</span>`; return; }
+  d.innerHTML = ranked.map(r=>`<span class="chip">${r.name} (${r.score}/5)</span>`).join('');
+  document.getElementById('badge-s').className = 'complete-badge show';
+}
+
+function buildCheckList(items, containerId, prefix, cols) {
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = items.map((item,i)=>`
+    <label class="check-item">
+      <input type="checkbox" id="${prefix}_${i}" onchange="updateProgress()">
+      <span>${item}</span>
+    </label>`).join('');
+}
+
+function buildStyleGrid() {
+  const keys = ['C','CL','TP','A'];
+  const colClass = ['sc-c','sc-cl','sc-tp','sc-a'];
+  const g = document.getElementById('style-grid');
+  g.innerHTML = keys.map((k,idx) => {
+    const sd = DATA.style[k];
+    return `<div class="style-col">
+      <div class="style-col-head ${colClass[idx]}">${sd[lang]}</div>
+      ${sd.items[lang].map((item,i)=>`<label class="style-item"><input type="checkbox" id="st_${k}_${i}" onchange="updateStyle('${k}')"><span>${item}</span></label>`).join('')}
+      <div class="style-score-box">
+        <div class="style-score-num" id="stsc_${k}">0</div>
+        <div class="style-score-sub">×2</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function updateStyle(k) {
+  const items = DATA.style[k].items[lang];
+  let n=0;
+  items.forEach((_,i)=>{ if(document.getElementById(`st_${k}_${i}`)?.checked) n++; });
+  document.getElementById(`stsc_${k}`).textContent = n*2;
+  updateProgress();
+}
+
+function buildJourney() {
+  const c = document.getElementById('journey-radios');
+  if(!c) return;
+  c.innerHTML = DATA.journey[lang].map((o,i)=>`
+    <label class="radio-item">
+      <input type="radio" name="journey" value="${i}" onchange="updateProgress()">
+      <span>${o}</span>
+    </label>`).join('');
+}
+
+function getCheckedItems(prefix, items) {
+  return items[lang].filter((_,i)=>document.getElementById(`${prefix}_${i}`)?.checked);
+}
+
+function styleScore(k) {
+  let n=0;
+  DATA.style[k].items[lang].forEach((_,i)=>{ if(document.getElementById(`st_${k}_${i}`)?.checked) n++; });
+  return n*2;
+}
+
+function rebuildAll() {
+  buildGifts();
+  buildCheckList(DATA.roles[lang], 'roles-grid', 'role');
+  buildCheckList(DATA.people[lang], 'people-grid', 'person');
+  buildCheckList(DATA.causes[lang], 'causes-grid', 'cause');
+  buildCheckList(DATA.abilities[lang], 'abilities-grid', 'ability');
+  buildStyleGrid();
+  buildCheckList(DATA.lifeExp[lang], 'life-grid', 'life');
+  buildCheckList(DATA.ministryExp[lang], 'ministry-grid', 'min');
+  buildJourney();
+}
+
+// ─── PROGRESS ──────────────────────────────────────────────────────────────────
+
+function updateProgress() {
+  let score = 0;
+  // gifts: any checked
+  const giftAny = DATA.gifts.some((_,gi)=>giftScore(gi)>0);
+  if(giftAny) score+=20;
+  // heart: any text + any check
+  if((document.getElementById('h-dream')?.value||'').trim() || (document.getElementById('h-passion')?.value||'').trim()) score+=5;
+  const roleAny = DATA.roles[lang].some((_,i)=>document.getElementById(`role_${i}`)?.checked);
+  if(roleAny) score+=5;
+  const peopleAny = DATA.people[lang].some((_,i)=>document.getElementById(`person_${i}`)?.checked);
+  if(peopleAny) score+=5;
+  const causeAny = DATA.causes[lang].some((_,i)=>document.getElementById(`cause_${i}`)?.checked);
+  if(causeAny) score+=5;
+  if(roleAny&&peopleAny&&causeAny) { document.getElementById('badge-h').className='complete-badge show'; }
+  // abilities
+  const abilAny = DATA.abilities[lang].some((_,i)=>document.getElementById(`ability_${i}`)?.checked);
+  if(abilAny) { score+=20; document.getElementById('badge-a').className='complete-badge show'; }
+  // style
+  const styleAny = ['C','CL','TP','A'].some(k=>DATA.style[k].items[lang].some((_,i)=>document.getElementById(`st_${k}_${i}`)?.checked));
+  if(styleAny) { score+=20; document.getElementById('badge-p').className='complete-badge show'; }
+  // experiences
+  const expAny = DATA.lifeExp[lang].some((_,i)=>document.getElementById(`life_${i}`)?.checked) ||
+                 DATA.ministryExp[lang].some((_,i)=>document.getElementById(`min_${i}`)?.checked) ||
+                 (document.getElementById('e-work')?.value||'').trim();
+  if(expAny) { score+=20; document.getElementById('badge-e').className='complete-badge show'; }
+
+  document.getElementById('progress-fill').style.width = Math.min(score,100)+'%';
+}
+
+// ─── TOGGLE ──────────────────────────────────────────────────────────────────
+
+function toggle(bodyId, chevId, letterId) {
+  const b = document.getElementById(bodyId);
+  const c = document.getElementById(chevId);
+  const open = b.classList.toggle('open');
+  c.classList.toggle('open', open);
+  if(letterId) document.getElementById(letterId).classList.toggle('active-section', open);
+}
+
+// ─── RESULTS ──────────────────────────────────────────────────────────────────
+
+function showResults() {
+  const name = document.getElementById('person-name')?.value?.trim() || '';
+  const date = document.getElementById('person-date')?.value?.trim() || '';
+
+  const top3gifts = DATA.gifts.map((g,gi)=>({name:g[lang],score:giftScore(gi)}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,3);
+
+  const topRoles = getCheckedItems('role', DATA.roles);
+  const topPeople = getCheckedItems('person', DATA.people);
+  const topCauses = getCheckedItems('cause', DATA.causes);
+  const topAbilities = getCheckedItems('ability', DATA.abilities);
+
+  const styleScores = ['C','CL','TP','A'].map(k=>({
+    label: DATA.style[k][lang], key:k, score: styleScore(k)
+  }));
+  const dominantStyle = styleScores.slice().sort((a,b)=>b.score-a.score)[0];
+
+  const topLife = getCheckedItems('life', DATA.lifeExp);
+  const topMinistry = getCheckedItems('min', DATA.ministryExp);
+  const workExp = (document.getElementById('e-work')?.value||'').trim();
+  const journeyEl = document.querySelector('input[name="journey"]:checked');
+  const journeyTxt = journeyEl ? DATA.journey[lang][journeyEl.value] : '';
+
+  const t = lang==='en';
+
+  function chips(items, cls) {
+    if(!items.length) return `<span style="color:var(--ink-faint);font-size:13px">${t?'None selected':'Ninguno seleccionado'}</span>`;
+    return `<div class="res-chips">${items.map(i=>`<span class="res-chip ${cls}">${i}</span>`).join('')}</div>`;
+  }
+
+  let html = '';
+
+  // S
+  html += `<div class="res-section">
+    <div class="res-section-label rs">${t?'S — Spiritual Gifts':'S — Dones Espirituales'}</div>
+    ${top3gifts.length ? `<div class="res-chips">${top3gifts.map(g=>`<span class="res-chip rc-s">${g.name} (${g.score}/5)</span>`).join('')}</div>` : `<span style="color:var(--ink-faint);font-size:13px">${t?'None scored yet':'Ninguno puntuado aún'}</span>`}
+  </div>`;
+
+  // H
+  html += `<div class="res-section">
+    <div class="res-section-label rh">${t?'H — Heart: Roles':'H — Corazón: Roles'}</div>
+    ${chips(topRoles.slice(0,3), 'rc-h')}
+  </div>
+  <div class="res-section">
+    <div class="res-section-label rh">${t?'H — Heart: People':'H — Corazón: Personas'}</div>
+    ${chips(topPeople.slice(0,3), 'rc-h')}
+  </div>
+  <div class="res-section">
+    <div class="res-section-label rh">${t?'H — Heart: Causes':'H — Corazón: Causas'}</div>
+    ${chips(topCauses.slice(0,3), 'rc-h')}
+  </div>`;
+
+  // A
+  html += `<div class="res-section">
+    <div class="res-section-label ra">${t?'A — Abilities (top selections)':'A — Habilidades (selecciones principales)'}</div>
+    ${chips(topAbilities.slice(0,5), 'rc-a')}
+  </div>`;
+
+  // P
+  const maxScore = 28;
+  html += `<div class="res-section">
+    <div class="res-section-label rp">${t?'P — Personal Style':'P — Estilo Personal'}</div>
+    <div class="style-bar-wrap">
+      ${styleScores.map(s=>`
+        <div class="style-bar-row">
+          <span class="style-bar-name">${s.label}</span>
+          <div class="style-bar-track"><div class="style-bar-fill" style="width:${Math.round(s.score/maxScore*100)}%;background:var(--p-color)"></div></div>
+          <span class="style-bar-num">${s.score}</span>
+        </div>`).join('')}
+    </div>
+    ${dominantStyle&&dominantStyle.score>0 ? `<p class="res-text" style="margin-top:.6rem">${t?'Dominant style':'Estilo dominante'}: <strong>${dominantStyle.label}</strong></p>` : ''}
+  </div>`;
+
+  // E
+  html += `<div class="res-section">
+    <div class="res-section-label re">${t?'E — Experiences':'E — Experiencias'}</div>
+    ${workExp ? `<p class="res-text" style="margin-bottom:.5rem"><em>${t?'Work:':'Trabajo:'}</em> ${workExp}</p>` : ''}
+    ${topLife.length ? `<div class="res-chips" style="margin-bottom:.5rem">${topLife.map(l=>`<span class="res-chip rc-e">${l}</span>`).join('')}</div>` : ''}
+    ${topMinistry.length ? `<div class="res-chips" style="margin-bottom:.5rem">${topMinistry.map(m=>`<span class="res-chip rc-e">${m}</span>`).join('')}</div>` : ''}
+    ${journeyTxt ? `<p class="res-text"><em>${t?'Spiritual journey':'Jornada espiritual:'}</em> ${journeyTxt.split('—')[0]}</p>` : ''}
+  </div>`;
+
+  document.getElementById('results-body').innerHTML = html;
+  document.getElementById('results-name-line').textContent =
+    (name ? (t?`Profile for `:`Perfil de `) + name : (t?'Your results:':'Tus resultados:')) +
+    (date ? `  ·  ${date}` : '');
+
+  const card = document.getElementById('results-card');
+  card.className = 'results-card open';
+  card.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ─── EMAIL ────────────────────────────────────────────────────────────────────
+
+function emailResults() {
+  const email = (document.getElementById('result-email')?.value||'').trim();
+  if(!email) { alert(lang==='en'?'Please enter your email address.':'Por favor ingresa tu correo electrónico.'); return; }
+  const name = document.getElementById('person-name')?.value?.trim()||'';
+  const t = lang==='en';
+
+  const top3gifts = DATA.gifts.map((g,gi)=>({name:g[lang],score:giftScore(gi)}))
+    .filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,3);
+
+  const topRoles = getCheckedItems('role',DATA.roles).slice(0,3);
+  const topPeople = getCheckedItems('person',DATA.people).slice(0,3);
+  const topCauses = getCheckedItems('cause',DATA.causes).slice(0,3);
+  const topAbilities = getCheckedItems('ability',DATA.abilities).slice(0,5);
+
+  const styleScores = ['C','CL','TP','A'].map(k=>({label:DATA.style[k][lang],score:styleScore(k)}));
+  const dominant = styleScores.slice().sort((a,b)=>b.score-a.score)[0];
+
+  const topLife = getCheckedItems('life',DATA.lifeExp);
+  const topMinistry = getCheckedItems('min',DATA.ministryExp);
+  const workExp = (document.getElementById('e-work')?.value||'').trim();
+  const journeyEl = document.querySelector('input[name="journey"]:checked');
+  const journeyTxt = journeyEl ? DATA.journey[lang][journeyEl.value] : '';
+
+  const subj = encodeURIComponent((t?'My S.H.A.P.E. Profile':'Mi Perfil S.H.A.P.E.') + (name?` — ${name}`:''));
+
+  const body = encodeURIComponent([
+    (t?'MY S.H.A.P.E. PROFILE':'MI PERFIL S.H.A.P.E.') + (name ? ` — ${name}` : ''),
+    '═'.repeat(48),
+    '',
+    (t?'S — SPIRITUAL GIFTS':'S — DONES ESPIRITUALES'),
+    top3gifts.length ? top3gifts.map((g,i)=>`  ${i+1}. ${g.name} (${g.score}/5)`).join('\n') : (t?'  None scored':'  Ninguno puntuado'),
+    '',
+    (t?'H — HEART':'H — CORAZÓN'),
+    (t?'  Roles:':'  Roles:') + (topRoles.length ? '\n  · '+topRoles.join('\n  · ') : ' —'),
+    (t?'  People:':'  Personas:') + (topPeople.length ? '\n  · '+topPeople.join('\n  · ') : ' —'),
+    (t?'  Causes:':'  Causas:') + (topCauses.length ? '\n  · '+topCauses.join('\n  · ') : ' —'),
+    '',
+    (t?'A — ABILITIES':'A — HABILIDADES'),
+    topAbilities.length ? topAbilities.map(a=>`  · ${a}`).join('\n') : (t?'  None selected':'  Ninguna seleccionada'),
+    '',
+    (t?'P — PERSONAL STYLE':'P — ESTILO PERSONAL'),
+    styleScores.map(s=>`  ${s.label}: ${s.score}/28`).join('\n'),
+    dominant&&dominant.score>0 ? `  ${t?'Dominant style':'Estilo dominante'}: ${dominant.label}` : '',
+    '',
+    (t?'E — EXPERIENCES':'E — EXPERIENCIAS'),
+    workExp ? `  ${t?'Work':'Trabajo'}: ${workExp}` : '',
+    topLife.length ? (t?'  Life experiences:':'  Experiencias de vida:') + '\n  · '+topLife.join('\n  · ') : '',
+    topMinistry.length ? (t?'  Ministry:':'  Ministerio:') + '\n  · '+topMinistry.join('\n  · ') : '',
+    journeyTxt ? `  ${t?'Spiritual journey':'Jornada espiritual'}: ${journeyTxt}` : '',
+  ].filter(l=>l!==undefined).join('\n'));
+
+  window.location.href = `mailto:${email}?subject=${subj}&body=${body}`;
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+rebuildAll();
+</script>
+</body>
+</html>
